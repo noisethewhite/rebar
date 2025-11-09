@@ -10,15 +10,13 @@
 #include <map>
 
 
-namespace {
-    template <class T, class... Ts> struct Index;
-    template <class T, class... Ts> struct Index<T, T, Ts...> : std::integral_constant<std::size_t, 0> {};
-    template <class T, class U, class... Ts> struct Index<T, U, Ts...> : std::integral_constant<std::size_t, 1 + Index<T, Ts...>::value> {};
-    template <class T, class V> struct variant_index;
-    template <class T, class... Ts> struct variant_index<T, ::std::variant<Ts...>> {
-        static const constexpr ::std::size_t v = Index<T, Ts...>::value;
-    };
-}
+template <class T, class... Ts> struct Index;
+template <class T, class... Ts> struct Index<T, T, Ts...> : std::integral_constant<std::size_t, 0> {};
+template <class T, class U, class... Ts> struct Index<T, U, Ts...> : std::integral_constant<std::size_t, 1 + Index<T, Ts...>::value> {};
+template <class T, class V> struct variant_index;
+template <class T, class... Ts> struct variant_index<T, ::std::variant<Ts...>> {
+    static const constexpr ::std::size_t v = Index<T, Ts...>::value;
+};
 
 
 class cfg {

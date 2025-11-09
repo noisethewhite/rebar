@@ -1,4 +1,3 @@
-#pragma once
 #include "../hh/sdl.hh"
 #include <string>
 #include <cstddef>
@@ -38,6 +37,7 @@ void sdl::create_window(::std::string const& name, uint32_t w, uint32_t h, bool 
     if (self.window) SDL_DestroyWindow(self.window);
     self.window = SDL_CreateWindow(name.c_str(), static_cast<int>(w), static_cast<int>(h), (fullscreen) ? SDL_WINDOW_FULLSCREEN : 0);
     if (!self.window) throw ::std::runtime_error(SDL_GetError());
+    if (!SDL_ShowWindow(self.window)) throw ::std::runtime_error(SDL_GetError());
 }
 
 SDL_Window* sdl::get_window() noexcept {
